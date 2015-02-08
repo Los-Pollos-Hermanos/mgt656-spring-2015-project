@@ -129,7 +129,7 @@ function saveEvent(request, response){
     
   }
 }
-
+ 
 function eventDetail (request, response) {
   var ev = events.getById(parseInt(request.params.id));
   if (ev === null) {
