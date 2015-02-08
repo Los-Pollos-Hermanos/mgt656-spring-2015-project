@@ -58,10 +58,62 @@ function saveEvent(request, response){
   var contextData = {errors: []};
 
   if (validator.isLength(request.body.title, 5, 50) === false) {
-    contextData.errors.push('Your title should be between 5 and 100 letters.');
+    contextData.errors.push('Your title should be between 5 and 50 letters.');
+  }
+  
+  if (validator.isLength(request.body.location, 5, 50) === false) {
+    contextData.errors.push('Your location should be between 5 and 50 letters.');
   }
 
-
+  if (validator.isURL(request.body.image) === false || (request.body.image.indexOf('.png') === -1 && request.body.image.indexOf('.gif') === -1)) {
+    contextData.errors.push('Your image should be an URL and a gif or png file.');
+  }
+  
+  if (validator.isInt(request.body.year) === false) {
+   contextData.errors.push('Year must be an integer.');
+ }
+ 
+  var year = parseInt(request.body.year, 10);
+  if (year > 2016 || year < 2015) {
+   contextData.errors.push('Year should be between 2015 & 2016.');
+ }
+ 
+  if (validator.isInt(request.body.month) === false) {
+   contextData.errors.push('Month must be an integer.');
+ }
+  
+  var month = parseInt(request.body.month, 10);
+  if (month > 11 || month < 0) {
+   contextData.errors.push('Month should be between 0 = January and 11 = December.');
+ }
+ 
+  if (validator.isInt(request.body.day) === false) {
+   contextData.errors.push('Day must be an integer.');
+ }
+ 
+ var day = parseInt(request.body.day, 10);
+  if (day > 31 || day < 1) {
+   contextData.errors.push('Day should be between 1 - 31.');
+ }
+ 
+  if (validator.isInt(request.body.hour) === false) {
+   contextData.errors.push('Hour must be an integer.');
+ }
+ 
+  var hour = parseInt(request.body.hour, 10);
+  if (hour > 23 || hour < 0) {
+   contextData.errors.push('Hour should be between 0 and 23.');
+ }
+ 
+  if (validator.isInt(request.body.minute) === false) {
+   contextData.errors.push('Minute must be an integer.');
+ }
+ 
+  var minute = parseInt(request.body.minute, 10);
+  if (minute !== 0 && minute !== 30) {
+   contextData.errors.push('Minute should be 0 or 30.');
+ }
+ 
   if (contextData.errors.length === 0) {
     var newEvent = {
       title: request.body.title,
@@ -74,6 +126,7 @@ function saveEvent(request, response){
     response.redirect('/events');
   }else{
     response.render('create-event.html', contextData);
+    
   }
 }
 
