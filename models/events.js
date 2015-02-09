@@ -54,7 +54,18 @@ function getById (id) {
   return null;
 }
 
+
+function createNewId (){
+  var biggest=0;
+  for (var i = allEvents.length - 1; i >= 0; i--) {
+    if(allEvents[i].id > biggest ){
+      biggest = allEvents[i].id;
+    }
+    return biggest++;
+  }
+}
 module.exports = exports = {
   all: allEvents,
-  getById: getById
+  getById: getById,
+  createNewId: createNewId
 };

@@ -113,17 +113,18 @@ function saveEvent(request, response){
   if (minute !== 0 && minute !== 30) {
    contextData.errors.push('Minute should be 0 or 30.');
  }
- 
+    var id = events.createNewId();
   if (contextData.errors.length === 0) {
     var newEvent = {
       title: request.body.title,
       location: request.body.location,
       image: request.body.image,
       date: new Date(),
+      id: id,
       attending: []
     };
     events.all.push(newEvent);
-    response.redirect('/events');
+    response.redirect('/events/'+id);
   }else{
     response.render('create-event.html', contextData);
     
