@@ -127,10 +127,11 @@ function saveEvent(request, response){
     response.redirect(302,'/events/'+id);
   }else{
     response.render('create-event.html', contextData);
-    
-  }
+      }
 }
  
+
+
 function eventDetail (request, response) {
   var ev = events.getById(parseInt(request.params.id));
   if (ev === null) {
@@ -139,17 +140,15 @@ function eventDetail (request, response) {
   response.render('event-detail.html', {event: ev});
 }
 
+
+
 function rsvp (request, response){
   var ev = events.getById(parseInt(request.params.id));
   if (ev === null) {
     response.status(404).send('No such event');
   }
 
-
-
-
-
-  if(validator.isEmail(request.body.email) === false (reques.body.email.indexOf('@yale.edu'))){
+  if(validator.isEmail(request.body.email) && (request.body.email.indexOf('@yale.edu'))){
       
     ev.attending.push(request.body.email);
     response.redirect('/events/' + ev.id);
@@ -180,6 +179,7 @@ if (validator.isURL(request.body.image) === false || (request.body.image.indexOf
     contextData.errors.push('Your image should be an URL and a gif or png file.');
 } */
   
+
 
 
 function api(request, response){
