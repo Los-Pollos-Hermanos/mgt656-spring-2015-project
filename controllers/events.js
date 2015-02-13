@@ -138,22 +138,24 @@ function eventDetail (request, response) {
   response.render('event-detail.html', {event: ev});
 }
 
-function rsvp (request, response){
-  var ev = events.getById(parseInt(request.params.id));
-  if (ev === null) {
-    response.status(404).send('No such event');
-  }
+function rsvp (request, response) {
+    
+    var ev = events.getById(parseInt(request.params.id));
+        if (ev === null) {
+        response.status(404).send('No such event');
+    }
 
-  if(validator.isEmail(request.body.email) && (request.body.email.indexOf('@yale.edu'))){
-      
-    ev.attending.push(request.body.email);
-    response.redirect('/events/' + ev.id);
-  }
-  else{
-    var contextData = {errors: [], event: ev};
-    contextData.errors.push('Invalid email');
-    response.render('event-detail.html', contextData);    
-  }
+    var email = request.body.email;
+        if (validator.isEmail(request.body.email) && (request.body.email.toLowerCase().indexOf('@yale.edu') > -1)) {
+        ev.attending.push(request.body.email);
+        response.redirect('/events/' + ev.id);
+    }
+  
+    else{
+        var contextData = {errors: [], event: ev};
+        contextData.errors.push('Invalid email');
+        response.render('event-detail.html', contextData);    
+    }
 
 }
 
