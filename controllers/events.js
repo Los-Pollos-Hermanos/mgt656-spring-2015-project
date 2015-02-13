@@ -145,7 +145,26 @@ function rsvp (request, response){
     response.status(404).send('No such event');
   }
 
-  if(validator.isEmail(request.body.email)){
+
+
+
+
+  if(validator.isEmail(request.body.email) === false (reques.body.email.indexOf('@yale.edu'))){
+      
+    ev.attending.push(request.body.email);
+    response.redirect('/events/' + ev.id);
+  }
+  else{
+    var contextData = {errors: [], event: ev};
+    contextData.errors.push('Invalid email');
+    response.render('event-detail.html', contextData);    
+  }
+
+}
+
+/*
+if(validator.isEmail(request.body.email)){
+      
     ev.attending.push(request.body.email);
     response.redirect('/events/' + ev.id);
   }else{
@@ -155,6 +174,13 @@ function rsvp (request, response){
   }
 
 }
+
+
+if (validator.isURL(request.body.image) === false || (request.body.image.indexOf('.png') === -1 && request.body.image.indexOf('.gif') === -1)) {
+    contextData.errors.push('Your image should be an URL and a gif or png file.');
+} */
+  
+
 
 function api(request, response){
   var output= {events: []};
