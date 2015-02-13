@@ -130,8 +130,6 @@ function saveEvent(request, response){
       }
 }
  
-
-
 function eventDetail (request, response) {
   var ev = events.getById(parseInt(request.params.id));
   if (ev === null) {
@@ -139,8 +137,6 @@ function eventDetail (request, response) {
   }
   response.render('event-detail.html', {event: ev});
 }
-
-
 
 function rsvp (request, response){
   var ev = events.getById(parseInt(request.params.id));
@@ -171,16 +167,11 @@ if(validator.isEmail(request.body.email)){
     contextData.errors.push('Invalid email');
     response.render('event-detail.html', contextData);    
   }
-
 }
-
-
 if (validator.isURL(request.body.image) === false || (request.body.image.indexOf('.png') === -1 && request.body.image.indexOf('.gif') === -1)) {
     contextData.errors.push('Your image should be an URL and a gif or png file.');
 } */
   
-
-
 
 function api(request, response){
   var output= {events: []};

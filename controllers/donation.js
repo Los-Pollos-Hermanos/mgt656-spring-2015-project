@@ -3,7 +3,7 @@
 /**
  * Controller that renders our donation page.
  */
-function donation (request, response) {
+function donation (request, response){ 
   var contextData = {};
   response.render('donation.html', contextData);
 }

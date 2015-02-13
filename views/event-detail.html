@@ -18,14 +18,53 @@
     <li class="email">
         {{email}}
     </li>
-    
-  
-    
   {% endfor %}
 </ul>
 </div>
 
+<div>
+      {% if errors %}
+    
+    
+    
+    <ul class="form-errors">
+      {% for email in event.attending %}
+        <li class="email">
+            {{email}}
+        </li>
+      {% endfor %}
+      
+ 
+    
+        
+        
+    </ul>
+      {% endif %}
+      
+  
+      
+</div>
+
+
+
+     
+    <form id="create-rsvp" method="POST">
+    <label for="rsvp">RSVP:</label>
+    <input type="text" name="rsvp">
+    <p></p>
+    
+    <input type="submit" name="Submit">
+    <p></p>
+    </form>
+    
+ 
+    
+    
+
 {% endblock %}
+
+
+
 
 {% block footer %}
 
