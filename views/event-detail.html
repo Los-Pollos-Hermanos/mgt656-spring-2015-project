@@ -2,57 +2,40 @@
 
 {% block mainContent %}
 
+{% if errors %}
 <div>
-    <h1 id='title'>
-        {{event.title}}
-    </h1>
-    <span id='date'>
-        {{event.date}}
-    </span>
-    <span id='location'>
-        {{event.location}}
-    </span>
-    <img id="image" src='{{event.image}}'/>
-        <ul id="attendees">
-  {% for email in event.attending %}
-    <li class="email">
-        {{email}}
-    </li>
-  {% endfor %}
-</ul>
+    <ul class = 'form-errors'>
+    {% for email in event.attending %}
+        <li class="email">{{email}}</li>
+      {% endfor %}
+    </ul>
 </div>
+{% endif %}
 
 <div>
-      {% if errors %}
-    
-    
-    
-    <ul class="form-errors">
-      {% for email in event.attending %}
-        <li class="email">
-            {{email}}
-        </li>
-      {% endfor %}
-      
- 
-    
-        
-        
-    </ul>
-      {% endif %}
-      
-  
-      
-</div>
-    <form id="create-rsvp" method="POST">
-    <label for="rsvp">RSVP:</label>
-    <input type="text" name="rsvp">
+    <h1 id='title'> {{event.title}} </h1>
+    <span id='date'>{{event.date}}</span>
     <p></p>
-    <input type="submit" name="Submit">
+    <span id='location'>{{event.location}}</span>
     <p></p>
+    <img id="image" src='{{event.image}}'/>
+    <p></p>
+    
+    <form method="POST">
+        <input type = 'text' name = 'email' id = 'email' placeholder='Your email'/>
+        <input type = "submit" name="Submit">
+        <p></p>
     </form>
+
+    <ul id = 'attendees'>
+        {% for email in event.attending %}
+        <li class="email">{{email}}</li>
+        {% endfor %}
+    </ul>
     
- {% endblock %}
+</div>
+
+{% endblock %}
 
 {% block footer %}
 

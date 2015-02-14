@@ -113,7 +113,8 @@ function saveEvent(request, response){
   if (minute !== 0 && minute !== 30) {
    contextData.errors.push('Minute should be 0 or 30.');
  }
-    var id = events.createNewId();
+
+var id = events.createNewId();
   if (contextData.errors.length === 0) {
     var newEvent = {
       title: request.body.title,
@@ -144,10 +145,12 @@ function rsvp (request, response) {
         response.status(404).send('No such event');
     }
 
-    var email = request.body.email;
-        if (validator.isEmail(request.body.email) && (request.body.email.toLowerCase().indexOf('@yale.edu') > -1)) {
+    var email = request.body.email.toLowerCase();
+        if(validator.isEmail(email) && validator.contains(email,'@yale.edu')){
+//      var email = request.body.email;
+//      if (validator.isEmail(request.body.email) && (request.body.email.toLowerCase().indexOf('@yale.edu') > -1)) {
         ev.attending.push(request.body.email);
-        response.redirect('/events/' + ev.id);
+        response.redirect(302,'/events/' + ev.id);
     }
   
     else {
@@ -156,22 +159,6 @@ function rsvp (request, response) {
         response.render('event-detail.html', contextData);    
     }
 }
-
-/*
-if(validator.isEmail(request.body.email)){
-      
-    ev.attending.push(request.body.email);
-    response.redirect('/events/' + ev.id);
-  }else{
-    var contextData = {errors: [], event: ev};
-    contextData.errors.push('Invalid email');
-    response.render('event-detail.html', contextData);    
-  }
-}
-if (validator.isURL(request.body.image) === false || (request.body.image.indexOf('.png') === -1 && request.body.image.indexOf('.gif') === -1)) {
-    contextData.errors.push('Your image should be an URL and a gif or png file.');
-} */
-  
 
 function api(request, response){
   var output= {events: []};
