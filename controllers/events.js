@@ -139,7 +139,6 @@ function eventDetail (request, response) {
 }
 
 function rsvp (request, response) {
-    
     var ev = events.getById(parseInt(request.params.id));
         if (ev === null) {
         response.status(404).send('No such event');
@@ -151,12 +150,11 @@ function rsvp (request, response) {
         response.redirect('/events/' + ev.id);
     }
   
-    else{
+    else {
         var contextData = {errors: [], event: ev};
         contextData.errors.push('Invalid email');
         response.render('event-detail.html', contextData);    
     }
-
 }
 
 /*
