@@ -145,10 +145,8 @@ function rsvp (request, response) {
         response.status(404).send('No such event');
     }
 
-    var email = request.body.email.toLowerCase();
-        if(validator.isEmail(email) && validator.contains(email,'@yale.edu')){
-//      var email = request.body.email;
-//      if (validator.isEmail(request.body.email) && (request.body.email.toLowerCase().indexOf('@yale.edu') > -1)) {
+    var email = request.body.email;
+        if (validator.isEmail(request.body.email) && (request.body.email.toLowerCase().indexOf('@yale.edu') > -1)) {
         ev.attending.push(request.body.email);
         response.redirect(302,'/events/' + ev.id);
     }
